@@ -23,6 +23,8 @@ void	ft_get_sig(int signal_c)
 	if (count == 8)
 	{
 		write(1, &c, 1);
+		count = 0;
+		c = 0;
 	}
 	
 }
@@ -30,8 +32,15 @@ void	ft_get_sig(int signal_c)
 int main(int ac, char **av)
 {
 	(void)av;
+	if (ac != 1)
+	{
+		ft_printf("Error: No arguments needed\n");
+		return (1);	
+	}
 	ft_printf("PID: %d\n", getpid());
+	while (ac == 1)
+	{
 	signal(SIGUSR1, ft_get_sig);
 	signal(SIGUSR2, ft_get_sig);
-	
+	}
 }
