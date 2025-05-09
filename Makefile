@@ -21,6 +21,8 @@ PRINTF_DIR = ft_printf
 PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a 
 PRINTF_INC = -I$(PRINTF_DIR)
 
+all: $(NAME_S) $(NAME_C)
+
 $(NAME_S): $(OBJS_S) $(PRINTF_LIB)
 	$(CC) $(CFLAGS) -o $(NAME_S) $(OBJS_S) $(PRINTF_INC) $(PRINTF_LIB)
 
@@ -36,8 +38,6 @@ $(NAME_C_BONUS): $(OBJS_C_BONUS) $(PRINTF_LIB)
 $(PRINTF_LIB):
 	make -C $(PRINTF_DIR)
 
-all: $(NAME_S) $(NAME_C)
-
 bonus: $(NAME_S_BONUS) $(NAME_C_BONUS)
 
 clean:
@@ -50,4 +50,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
