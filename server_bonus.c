@@ -12,11 +12,12 @@
 
 #include "minitalk.h"
 
-void	ft_get_sig(int signal_c)
+void	ft_get_sig(int signal_c, siginfo_t *info, void *context)
 {
 	static char	c;
 	static int	count;
 
+	(void)context;
 	if (signal_c == SIGUSR1)
 		c = c | (1 << count);
 	count++;
@@ -25,10 +26,11 @@ void	ft_get_sig(int signal_c)
 		if (c == '\0')
 		{
 			ft_printf("\n");
+			kill(info->si_pid, SIGUSR2);
 		}
 		else
 			ft_printf("%c", c);
-		count = 0;   
+		count = 0;
 		c = 0;
 	}
 }
@@ -36,17 +38,17 @@ void	ft_get_sig(int signal_c)
 int	main(int ac, char **av)
 {
 	struct sigaction	action;
-	
+
 	(void)av;
 	if (ac != 1)
 	{
 		ft_printf("Error: No arguments needed\n");
 		return (1);
 	}
-	action.sa_handler = ft_get_sig;
-	sigemptyset(&action.sa_mask);
-	action.sa_flags = 0;
 	ft_printf("PID: %d\n", getpid());
+	action.sa_sigaction = ft_get_sig;
+	action.sa_flags = SA_SIGINFO;
+	sigemptyset(&action.sa_mask);
 	while (ac == 1)
 	{
 		sigaction(SIGUSR1, &action, NULL);

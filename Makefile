@@ -41,11 +41,11 @@ $(PRINTF_LIB):
 bonus: $(NAME_S_BONUS) $(NAME_C_BONUS)
 
 clean:
-	$(RM) $(OBJS_S) $(OBJS_C)
+	$(RM) $(OBJS_S) $(OBJS_C) $(OBJS_S_BONUS) $(OBJS_C_BONUS)
 	make -C $(PRINTF_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME_S) $(NAME_C)
+	$(RM) $(NAME_S) $(NAME_C) $(NAME_S_BONUS) $(NAME_C_BONUS)
 	make -C $(PRINTF_DIR) fclean
 
 re: fclean all

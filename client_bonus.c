@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
-void msg_received(int signum)
+
+void	msg_received(int signum)
 {
 	if (signum == SIGUSR2)
 		ft_printf("Message received\n");
 }
+
 int	ft_atoi(const char *str)
 {
 	unsigned long long	num;
@@ -59,25 +61,36 @@ void	ft_send_sig(int pid, char c)
 	}
 }
 
+int	is_only_digits(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	int		pid;
 	int		i;
-	char	*str;
 
 	if (ac == 3)
 	{
+		if (!is_only_digits(av[1]))
+			return (ft_printf("Error: PID must be digits only\n"), 1);
 		pid = ft_atoi(av[1]);
 		if (pid < 0)
-		{
-			ft_printf("Error: Invalid PID\n");
-			return (1);
-		}
-		str = av[2];
+			return (ft_printf("Error: Invalid PID\n"), 1);
 		i = 0;
-		while (str[i])
+		while (av[2][i])
 		{
-			ft_send_sig(pid, str[i]);
+			ft_send_sig(pid, av[2][i]);
 			i++;
 		}
 		signal(SIGUSR2, msg_received);
