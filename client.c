@@ -6,7 +6,7 @@
 /*   By: raalifa <raalifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 19:45:26 by raalifa           #+#    #+#             */
-/*   Updated: 2025/05/08 16:29:24 by raalifa          ###   ########.fr       */
+/*   Updated: 2025/05/10 15:20:46 by raalifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,20 @@ void	ft_send_sig(int pid, char c)
 	}
 }
 
+int	is_only_digits(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	int		pid;
@@ -63,6 +77,8 @@ int	main(int ac, char **av)
 
 	if (ac == 3)
 	{
+		if (!is_only_digits(av[1]))
+			return (ft_printf("Error: PID must be digits only\n"), 1);
 		pid = ft_atoi(av[1]);
 		str = av[2];
 		i = 0;
