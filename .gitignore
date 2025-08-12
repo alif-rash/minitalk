@@ -1,0 +1,15 @@
+# Compiled binaries
+server
+client
+server_bonus
+client_bonus
+
+# Object files
+*.o
+
+# Library files
+*.a
+
+# System files
+.DS_Store
+*~
