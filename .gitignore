@@ -1,0 +1,11 @@
+# Build artifacts
+*.o
+*.a
+server
+client
+server_bonus
+client_bonus
+
+# ft_printf build artifacts
+ft_printf/*.o
+ft_printf/*.a
