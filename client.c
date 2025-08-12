@@ -50,7 +50,7 @@ void	ft_send_sig(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(200);
+		usleep(100);
 		i++;
 	}
 }
